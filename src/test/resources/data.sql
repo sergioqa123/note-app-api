@@ -1,0 +1,1 @@
+INSERT INTO note (id, title, content, owner) VALUES (20, 'Note 20', 'Content 20', 'sergio')

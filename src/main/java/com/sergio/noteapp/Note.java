@@ -1,4 +1,6 @@
 package com.sergio.noteapp;
 
-public record Note(Long id, String title, String content, String owner) {
+import org.springframework.data.annotation.Id;
+
+public record Note(@Id Long id, String title, String content, String owner) {
 }
