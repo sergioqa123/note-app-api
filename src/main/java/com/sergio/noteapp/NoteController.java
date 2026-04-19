@@ -1,11 +1,10 @@
 package com.sergio.noteapp;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -26,5 +25,12 @@ public class NoteController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping()
+    public ResponseEntity<Void> createNote(@RequestBody Note newNoteRequest, UriComponentsBuilder ucb){
+        Note savedNote = noteRepository.save(newNoteRequest);
+        URI locationOfNewNote = ucb.path("/notes/{id}").buildAndExpand(newNoteRequest.id()).toUri();
+        return ResponseEntity.created(locationOfNewNote).build();
     }
 }
